@@ -1,27 +1,44 @@
-import { Link } from "react-router-dom";
-import { IconClose, IconFb, IconGG } from "../../../assets"
+import { useContext, useEffect } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { ToastContainer, toast } from "react-toastify";
+import { IconClose } from "../../../assets";
+import { authorizationContext } from "../../../contexts/Authenzication";
+import { useLogin } from "../../../hooks/useLogin";
 import "./../../../sass/login.scss";
 
 const LoginComponent = () => {
+    const { login, onLogin } = useLogin();
+    const [token] = useContext(authorizationContext);
+    const navigate = useNavigate();
+    useEffect(() => {
+        if (token) {
+            toast.success("Bạn đã đăng nhập!");
+            setTimeout(() => {
+                navigate('/');
+            }, 1000)
+        }
+    }, [])
     return (
         <>
             <div className="container">
+                <ToastContainer />
                 <div className="form">
                     <div className="form-close">
                         <Link to={'/'}><img src={IconClose} alt="" /></Link>
                     </div>
                     <h1 className="form-title">Login</h1>
-                    <form>
+                    <form onSubmit={login.handleSubmit(onLogin)}>
                         <div className="form-group">
                             <label className="form-group__label" htmlFor="email">
-                                Username:
+                                Email:
                             </label>
                             <input
                                 className="form-group__input"
                                 type="email"
                                 id="email"
-                                name="email"
+                                {...login.register("email", { required: true })}
                             />
+                            {login.formState.errors.email && <span>Email is required</span>}
                         </div>
                         <div className="form-group">
                             <label htmlFor="password" className="form-group__label">
@@ -31,13 +48,14 @@ const LoginComponent = () => {
                                 type="password"
                                 className="form-group__input"
                                 id="password"
-                                name="password"
+                                {...login.register("password", { required: true })}
                             />
+                            {login.formState.errors.password && <span>Password is required</span>}
                         </div>
                         <button type="submit" className="form-button">
                             Login
                         </button>
-                        <div className="form-social__button">
+                        {/* <div className="form-social__button">
                             <button className="btn form-social__fb">
                                 <a>
                                     <img src={IconFb} alt="" />
@@ -50,7 +68,7 @@ const LoginComponent = () => {
                                     Google
                                 </a>
                             </button>
-                        </div>
+                        </div> */}
                     </form>
                 </div>
             </div>

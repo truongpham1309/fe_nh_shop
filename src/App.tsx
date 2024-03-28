@@ -7,6 +7,7 @@ import CartComponent from "./components/clients/cart/CartComponent";
 import CheckOutComponent from "./components/clients/checkout/CheckOutComponent";
 import LoginComponent from "./components/clients/login/LoginComponent";
 import { configUseAxios } from "./configs/axios";
+import "react-toastify/ReactToastify.css"
 
 
 configUseAxios();
