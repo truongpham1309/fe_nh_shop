@@ -9,7 +9,6 @@ const ProductsListComponent = () => {
     const [page, setPage] = useState<number>(1);
     const { totalPage } = useGetTotalPageProduct();
     const { data: products, isLoading, isError, refetch } = useProductQuery({ page, limit: 12 });
-
     useEffect(() => {
         refetch();
     }, [page])
@@ -22,9 +21,9 @@ const ProductsListComponent = () => {
                 <div className="container">
                     <div className="section-body">
                         <div className="product-list">
-                            {products?.length > 0 ? products.map((product: TProduct) => (
+                            {(products as TProduct[]).length > 0 ? (products as TProduct[]).map((product: TProduct) => (
                                 <ProductItemComponent product={product} key={product._id} />
-                            )) : <>Product Not Found</>}O
+                            )) : <>Product Not Found</>}
                         </div>
                     </div>
                 </div>
@@ -33,14 +32,13 @@ const ProductsListComponent = () => {
             <section className="pagination">
                 {page >= totalPage.length ? <button className="prev-btn" onClick={() => setPage(page - 1)}>Prev</button> : ""}
                 <ul className="page-list">
-                    {totalPage.map((page) => (
-                        <li key={page} onClick={() => setPage(page)} className="page-item">
-                            {page}
+                    {totalPage.map((pageI) => (
+                        <li key={pageI} style={pageI === page ? {background: "#B88E2F"} : {}} onClick={() => setPage(pageI)} className="page-item">
+                            {pageI}
                         </li>
                     ))}
                 </ul>
                 {page < totalPage.length ? <button className="next-btn" onClick={() => setPage(page + 1)}>Next</button> : ""}
-
             </section>
         </>
     )

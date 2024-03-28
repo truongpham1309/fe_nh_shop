@@ -19,7 +19,7 @@ const App = () => {
           <Route path="/" element={<LayoutClient />}>
             <Route path="/" element={<HomePage />} />
             <Route path="/products" element={<ShopPageComponent />} />
-            <Route path="/product/:id/detail" element={<ProductDetailPage />} />
+            <Route path="products/:id/detail" element={<ProductDetailPage />} />
             <Route path="/cart" element={<CartComponent />} />
             <Route path="/checkout" element={<CheckOutComponent />} />
           </Route>

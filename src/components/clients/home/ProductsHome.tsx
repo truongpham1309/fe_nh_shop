@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom"
+
 const ProductsHome = () => {
     return (
         <>
@@ -177,6 +179,9 @@ const ProductsHome = () => {
                         </div>
                     </div>
                 </section>
+                <div style={{ marginBottom: 50 }} className="relate-product-showmore">
+                    <Link to={'/products'}><button className="btn-showmore">Show More</button></Link>
+                </div>
                 <div className="container">
                     <hr />
                 </div>

@@ -8,6 +8,7 @@ export type TProduct = {
     category: {
         category_name: string,
         image: string,
+        _id: string,
     },
     countStocks: number,
     description: string,

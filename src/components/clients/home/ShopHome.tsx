@@ -48,6 +48,7 @@ const ShopHome = () => {
                     </div>
                 </div>
             </section>
+            
         </>
     )
 }

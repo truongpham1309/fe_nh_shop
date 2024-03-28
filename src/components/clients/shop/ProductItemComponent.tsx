@@ -15,7 +15,7 @@ const ProductItemComponent = ({ product }: { product: TProduct }) => {
                 </div>
                 <div className="product-info">
                     <h3 className="product__name">
-                        <a href={`product/${product._id}/detail`} className="product__link">
+                        <a href={`/products/${product._id}/detail`} className="product__link">
                             {product.product_name}
                         </a>
                     </h3>
@@ -28,12 +28,12 @@ const ProductItemComponent = ({ product }: { product: TProduct }) => {
                     </div>
                 </div>
                 <div className="product-actions">
-                    <Link to={`product/${product._id}/detail`}>
+                    <Link to={`/products/${product._id}/detail`}>
                         <button className="btn product-action__quickview">
                             Quick View
                         </button>
                     </Link>
-                    <button className="btn product-action__addtocart">
+                    <button style={{height: 50}} className="btn product-action__addtocart">
                         Add To Cart
                     </button>
                     <div className="product-actions-more">
