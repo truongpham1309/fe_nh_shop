@@ -8,6 +8,7 @@ import CheckOutComponent from "./components/clients/checkout/CheckOutComponent";
 import LoginComponent from "./components/clients/login/LoginComponent";
 import { configUseAxios } from "./configs/axios";
 import "react-toastify/ReactToastify.css"
+import RegisterComponent from "./components/clients/login/RegisterComponent";
 
 
 configUseAxios();
@@ -25,6 +26,7 @@ const App = () => {
             <Route path="/checkout" element={<CheckOutComponent />} />
           </Route>
           <Route path="/login" element={<LoginComponent />} />
+          <Route path="/register" element={<RegisterComponent />} />
         </Routes>
       </BrowserRouter>
     </>

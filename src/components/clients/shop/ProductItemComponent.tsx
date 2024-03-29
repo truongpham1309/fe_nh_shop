@@ -33,9 +33,11 @@ const ProductItemComponent = ({ product }: { product: TProduct }) => {
                             Quick View
                         </button>
                     </Link>
-                    <button style={{height: 50}} className="btn product-action__addtocart">
-                        Add To Cart
-                    </button>
+                    <Link to={`/products/${product._id}/detail`}>
+                        <button style={{ height: 50 }} className="btn product-action__addtocart">
+                            Add To Cart
+                        </button>
+                    </Link>
                     <div className="product-actions-more">
                         <span className="product-action__share">Share</span>
                         <span className="product-action__compare">Compare</span>

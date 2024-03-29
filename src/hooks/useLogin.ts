@@ -1,35 +1,43 @@
-import axios from "axios";
 import { useContext } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
-import { authorizationContext } from "../contexts/Authenzication";
-import { TUser } from "../types/login";
 import { toast } from "react-toastify";
+import { authorizationContext } from "../contexts/Authenzication";
+import { loginService, registerService } from "../services/authService";
+import { TRegister } from "../types/login";
+
+type TAction = {
+    type: "LOGIN" | "REGISTER"
+}
 
 
-export const useLogin = () => {
-    const login = useForm<TUser>();
+export const useLogin = ({ type }: TAction) => {
+    const login = useForm<TRegister>();
     const [token, setToken, removeToken] = useContext(authorizationContext);
     const navigate = useNavigate();
 
-    const onLogin: SubmitHandler<TUser> = async (user) => {
-        try {
-            const { data } = await axios.post('/auth/login', user);
-            if (token) {
-                removeToken();
+    const onLogin: SubmitHandler<TRegister> = async (user) => {
+        switch (type) {
+            case "LOGIN":
+                const data = await loginService(user);
+                if (token) {
+                    removeToken();
+                    setToken(data.token);
+                    toast.success("Đăng nhập thành công");
+                    setTimeout(() => {
+                        navigate('/');
+                    }, 1000)
+                }
                 setToken(data.token);
                 toast.success("Đăng nhập thành công");
                 setTimeout(() => {
                     navigate('/');
                 }, 1000)
-            }
-            setToken(data.token);
-            toast.success("Đăng nhập thành công");
-            setTimeout(() => {
-                navigate('/');
-            }, 1000)
-        } catch (error) {
-            console.log(error);
+                break;
+            case "REGISTER": 
+                await registerService(user);
+                toast.success("Đăng kí thành công, Mời bạn đăng nhập!");
+                navigate('/login');
         }
     }
 
