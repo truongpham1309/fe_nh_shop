@@ -1,8 +1,8 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { addToCart, decrementQuantity, getCartByUserID, incrementQuantity, updateQuantityCartByProductID } from "../services/cartService";
+import { addToCart, decrementQuantity, getCartByUserID, incrementQuantity, removeCartByUserID, updateQuantityCartByProductID } from "../services/cartService";
 
 type ActionUpdateQuantityProps = {
-    type: "UPDATE" | "INCREMENT" | "DECREMENT"
+    type: "UPDATE" | "INCREMENT" | "DECREMENT" | "REMOVE"
 }
 
 export const useCartQuery = () => {
@@ -45,6 +45,9 @@ export const useUpdateQuantity = ({ type }: ActionUpdateQuantityProps) => {
                     break;
                 case "DECREMENT":
                     await decrementQuantity({ productID });
+                    break;
+                case "REMOVE":
+                    await removeCartByUserID({ productID });
                     break;
                 default: return {};
             }
