@@ -9,6 +9,7 @@ import LoginComponent from "./components/clients/login/LoginComponent";
 import { configUseAxios } from "./configs/axios";
 import "react-toastify/ReactToastify.css"
 import RegisterComponent from "./components/clients/login/RegisterComponent";
+import "bootstrap/dist/css/bootstrap.min.css";
 
 
 configUseAxios();

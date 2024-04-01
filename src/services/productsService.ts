@@ -4,10 +4,9 @@ import { TProduct } from "../types/products";
 export const getAllProducts = async (page: number = 1, limit = 0) => {
     try {
         const { data } = await axios.get(`/products?page=${page}&limit=${limit}`);
-        return (data as TProduct[])
+        return data
     } catch (error) {
         console.log(error);
-        return []
     }
 }
 

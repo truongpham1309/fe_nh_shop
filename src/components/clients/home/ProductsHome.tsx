@@ -5,7 +5,7 @@ import ProductItemComponent from "../shop/ProductItemComponent";
 import { TProduct } from "../../../types/products";
 
 const ProductsHome = () => {
-    const { data: products, isLoading, isError } = useProductQuery({ page: 1, limit: 4 });
+    const { data, isLoading, isError } = useProductQuery({ page: 1, limit: 4 });
     if (isLoading) return <Loading />;
     if (isError) return <>Not Found</>
     return (
@@ -18,8 +18,8 @@ const ProductsHome = () => {
                         </div>
                         <div className="section-body">
                             <div className="product-list">
-                                {(products as TProduct[]).map(product => (
-                                    <ProductItemComponent product={product} />
+                                {(data.products as TProduct[]).map(product => (
+                                    <ProductItemComponent key={product._id} product={product} />
                                 ))}
                             </div>
                         </div>

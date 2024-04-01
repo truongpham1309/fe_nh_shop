@@ -11,7 +11,7 @@ const ProductItemComponent = ({ product }: { product: TProduct }) => {
                         alt=""
                         className="product__thumbnail"
                     />
-                    <span className="product-sale"></span>
+                    <span className="product-sale">10%</span>
                 </div>
                 <div className="product-info">
                     <h3 className="product__name">
@@ -29,12 +29,12 @@ const ProductItemComponent = ({ product }: { product: TProduct }) => {
                 </div>
                 <div className="product-actions">
                     <Link to={`/products/${product._id}/detail`}>
-                        <button className="btn product-action__quickview">
+                        <button className="btn product-action__quickview bg-white">
                             Quick View
                         </button>
                     </Link>
                     <Link to={`/products/${product._id}/detail`}>
-                        <button style={{ height: 50 }} className="btn product-action__addtocart">
+                        <button style={{ height: 50 }} className="btn product-action__addtocart bg-white">
                             Add To Cart
                         </button>
                     </Link>

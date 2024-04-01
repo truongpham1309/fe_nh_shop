@@ -16,7 +16,7 @@ export const getCartByUserID = async () => {
         const { data } = await axios.get("/cart/user");
         return data
     } catch (error: any) {
-        toast.error("Bạn chưa có đơn hàng nào!");
+        // toast.error("Bạn chưa có đơn hàng nào!");
         console.log(error);
     }
 }
