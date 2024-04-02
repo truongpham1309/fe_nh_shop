@@ -1,5 +1,5 @@
 export type TProduct = {
-    _id?: string,
+    _id: string,
     product_name: string,
     price: number,
     feature: boolean,
@@ -8,6 +8,7 @@ export type TProduct = {
     category: {
         category_name: string,
         image: string,
+        _id: string,
     },
     countStocks: number,
     description: string,

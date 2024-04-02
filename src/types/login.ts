@@ -5,6 +5,5 @@ export type TUser = {
 
 export type TRegister = TUser & {
     username: string,
-    image: string
+    confirmPassword: string
 }
-

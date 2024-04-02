@@ -1,23 +1,10 @@
-import { useContext, useEffect } from "react";
-import { Link, useNavigate } from "react-router-dom";
-import { ToastContainer, toast } from "react-toastify";
-import { authorizationContext } from "../../../contexts/Authenzication";
+import { Link } from "react-router-dom"
+import { ToastContainer } from "react-toastify"
+import { IconClose, IconFb, IconGG } from "../../../assets"
 import { useLogin } from "../../../hooks/useLogin";
-import "./../../../sass/login.scss";
-import { useLocalStorage, useSessionStorage } from "../../../hooks/useLocal";
 
-const LoginComponent = () => {
-    const { login, onLogin } = useLogin({ type: 'LOGIN' });
-    const [token] = useSessionStorage("token", "");
-    const navigate = useNavigate();
-    useEffect(() => {
-        if (token) {
-            toast.success("Bạn đã đăng nhập!");
-            setTimeout(() => {
-                navigate('/');
-            }, 1000)
-        }
-    }, [])
+const RegisterComponent = () => {
+    const { login, onLogin } = useLogin({ type: "REGISTER" });
     return (
         <>
             <ToastContainer />
@@ -40,6 +27,22 @@ const LoginComponent = () => {
                                 Sign in to your account
                             </h1>
                             <form className="space-y-4 md:space-y-6" onSubmit={login.handleSubmit(onLogin)}>
+                            <div>
+                                    <label
+                                        htmlFor="username"
+                                        className="block mb-2 text-sm font-medium text-left text-gray-900 "
+                                    >
+                                        Username
+                                    </label>
+                                    <input
+                                        type="text"
+                                        id="email"
+                                        {...login.register("username", { required: true })}
+                                        className="bg-gray-50 border outline-none border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 "
+                                        placeholder="name@company.com"
+                                    />
+                                    {login.formState.errors.username && <p className="text-red-500 text-left">Username is required</p>}
+                                </div>
                                 <div>
                                     <label
                                         htmlFor="email"
@@ -50,8 +53,7 @@ const LoginComponent = () => {
                                     <input
                                         type="email"
                                         id="email"
-                                        autoComplete=""
-                                        {...login.register("email", {required: true})}
+                                        {...login.register("email", { required: true })}
                                         className="bg-gray-50 border outline-none border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 "
                                         placeholder="name@company.com"
                                     />
@@ -66,16 +68,31 @@ const LoginComponent = () => {
                                     </label>
                                     <input
                                         type="password"
-                                        {...login.register("password", {required: true})}
+                                        {...login.register("password", { required: true })}
                                         id="password"
-                                        autoComplete=""
                                         placeholder="••••••••"
                                         className="bg-gray-50 border outline-none border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 "
                                     />
                                     {login.formState.errors.password && <p className="text-red-500 text-left">Password is required</p>}
                                 </div>
+                                <div>
+                                    <label
+                                        htmlFor="password"
+                                        className="block mb-2 text-sm text-left font-medium text-gray-900 "
+                                    >
+                                        ConfirmPassword
+                                    </label>
+                                    <input
+                                        type="password"
+                                        {...login.register("confirmPassword", { required: true })}
+                                        id="password"
+                                        placeholder="••••••••"
+                                        className="bg-gray-50 border outline-none border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 "
+                                    />
+                                    {login.formState.errors.confirmPassword && <p className="text-red-500 text-left">Confirm Password is required</p>}
+                                </div>
                                 <div className="flex items-center justify-between">
-                                    
+
                                     <a
                                         href="#"
                                         className="text-sm font-medium text-primary-600 hover:underline dark:text-primary-500"
@@ -85,17 +102,17 @@ const LoginComponent = () => {
                                 </div>
                                 <button
                                     type="submit"
-                                    className="w-full h-10 btn btn-primary bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center "
+                                    className="w-full btn btn-primary bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center "
                                 >
                                     Sign in
                                 </button>
                                 <p className="text-sm font-light text-gray-500 dark:text-gray-400">
                                     Don’t have an account yet?{" "}
                                     <Link
-                                        to="/register"
+                                        to="/login"
                                         className="font-medium text-primary-600 hover:underline dark:text-primary-500"
                                     >
-                                        Sign up
+                                        Sign in
                                     </Link>
                                 </p>
                             </form>
@@ -108,4 +125,4 @@ const LoginComponent = () => {
     )
 }
 
-export default LoginComponent
+export default RegisterComponent

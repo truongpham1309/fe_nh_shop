@@ -7,6 +7,10 @@ import CartComponent from "./components/clients/cart/CartComponent";
 import CheckOutComponent from "./components/clients/checkout/CheckOutComponent";
 import LoginComponent from "./components/clients/login/LoginComponent";
 import { configUseAxios } from "./configs/axios";
+import "react-toastify/ReactToastify.css"
+import RegisterComponent from "./components/clients/login/RegisterComponent";
+import "bootstrap/dist/css/bootstrap.min.css";
+import OrderList from "./pages/views/order/OrderList";
 
 
 configUseAxios();
@@ -19,11 +23,13 @@ const App = () => {
           <Route path="/" element={<LayoutClient />}>
             <Route path="/" element={<HomePage />} />
             <Route path="/products" element={<ShopPageComponent />} />
-            <Route path="/product/:id/detail" element={<ProductDetailPage />} />
+            <Route path="products/:id/detail" element={<ProductDetailPage />} />
             <Route path="/cart" element={<CartComponent />} />
             <Route path="/checkout" element={<CheckOutComponent />} />
+            <Route path="/order" element={<OrderList />} />
           </Route>
           <Route path="/login" element={<LoginComponent />} />
+          <Route path="/register" element={<RegisterComponent />} />
         </Routes>
       </BrowserRouter>
     </>

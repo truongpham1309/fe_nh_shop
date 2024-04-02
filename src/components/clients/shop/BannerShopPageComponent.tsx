@@ -2,7 +2,6 @@ const BannerShopPageComponent = () => {
     return (
         <>
             <section className="banner">
-                {/* <img src="https://picsum.photos/id/10/1440/500" alt="" class="banner__img" /> */}
                 <div className="banner-item">
                     <div className="container">
                         <div className="banner-nav">
@@ -29,7 +28,7 @@ const BannerShopPageComponent = () => {
                                 <div className="form-menu">
                                     <label htmlFor="">Short by</label>
                                     <input
-                                        type="text "
+                                        type="text"
                                         className="shortby-input"
                                         placeholder="Default"
                                     />

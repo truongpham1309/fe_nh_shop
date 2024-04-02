@@ -1,7 +1,10 @@
 import { Link } from "react-router-dom"
 import { TProduct } from "../../../types/products"
+import { useAddToCart } from "../../../hooks/useCart"
 
 const ProductItemComponent = ({ product }: { product: TProduct }) => {
+
+    const { mutate, isPending } = useAddToCart();
     return (
         <>
             <div className="product-item">
@@ -11,11 +14,11 @@ const ProductItemComponent = ({ product }: { product: TProduct }) => {
                         alt=""
                         className="product__thumbnail"
                     />
-                    <span className="product-sale"></span>
+                    <span className="product-sale">10%</span>
                 </div>
                 <div className="product-info">
                     <h3 className="product__name">
-                        <a href={`product/${product._id}/detail`} className="product__link">
+                        <a href={`/products/${product._id}/detail`} className="product__link">
                             {product.product_name}
                         </a>
                     </h3>
@@ -28,14 +31,14 @@ const ProductItemComponent = ({ product }: { product: TProduct }) => {
                     </div>
                 </div>
                 <div className="product-actions">
-                    <Link to={`product/${product._id}/detail`}>
-                        <button className="btn product-action__quickview">
+                    <Link to={`/products/${product._id}/detail`}>
+                        <button className="btn product-action__quickview bg-white">
                             Quick View
                         </button>
                     </Link>
-                    <button className="btn product-action__addtocart">
-                        Add To Cart
-                    </button>
+                        <button style={{ height: 50 }} disabled={isPending} onClick={() => mutate({productID: product._id, quantity: 1})} className="btn product-action__addtocart bg-white">
+                            Add To Cart
+                        </button>
                     <div className="product-actions-more">
                         <span className="product-action__share">Share</span>
                         <span className="product-action__compare">Compare</span>
