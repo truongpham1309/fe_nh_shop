@@ -20,7 +20,7 @@ const ProductsListComponent = () => {
                 <div className="container">
                     <div className="section-body">
                         <div className="product-list">
-                            {(data.products).map((product: TProduct) => (
+                            {(data.products)?.map((product: TProduct) => (
                                 <ProductItemComponent product={product} key={product._id} />
                             ))}
                         </div>

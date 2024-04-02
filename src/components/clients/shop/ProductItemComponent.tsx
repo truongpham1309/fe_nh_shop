@@ -1,7 +1,10 @@
 import { Link } from "react-router-dom"
 import { TProduct } from "../../../types/products"
+import { useAddToCart } from "../../../hooks/useCart"
 
 const ProductItemComponent = ({ product }: { product: TProduct }) => {
+
+    const { mutate, isPending } = useAddToCart();
     return (
         <>
             <div className="product-item">
@@ -33,11 +36,9 @@ const ProductItemComponent = ({ product }: { product: TProduct }) => {
                             Quick View
                         </button>
                     </Link>
-                    <Link to={`/products/${product._id}/detail`}>
-                        <button style={{ height: 50 }} className="btn product-action__addtocart bg-white">
+                        <button style={{ height: 50 }} onClick={() => mutate({productID: product._id, quantity: 1})} className="btn product-action__addtocart bg-white">
                             Add To Cart
                         </button>
-                    </Link>
                     <div className="product-actions-more">
                         <span className="product-action__share">Share</span>
                         <span className="product-action__compare">Compare</span>

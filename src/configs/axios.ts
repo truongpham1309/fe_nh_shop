@@ -6,7 +6,8 @@ export const configUseAxios = () => {
         (config) => {
             const token = sessionStorage.getItem('token');
             if (token) {
-                config.headers.authorization = `Bearer ${token}`;
+                const tokenParse = JSON.parse(token);
+                config.headers.authorization = `Bearer ${tokenParse}`;
             }
             return config;
         },

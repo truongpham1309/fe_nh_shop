@@ -21,9 +21,13 @@ export const getCartByUserID = async () => {
     }
 }
 
-export const incrementQuantity = async ({ productID }: { productID: string, quantity?: number  }) => {
+export const incrementQuantity = async ({ productID }: { productID: string, quantity?: number }) => {
     try {
-        await axios.put('/cart/increment', { productID });
+        const bodyRequest = {
+            productID: productID,
+        }
+        const { data } = await axios.put('/cart/increment', bodyRequest);
+        return data
     } catch (error) {
         toast.error("Không thể thay đổi số lượng, vui lòng thử lại!");
         console.log(error);

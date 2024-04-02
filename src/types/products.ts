@@ -1,5 +1,5 @@
 export type TProduct = {
-    _id?: string,
+    _id: string,
     product_name: string,
     price: number,
     feature: boolean,

@@ -1,9 +1,11 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { addToCart, decrementQuantity, getCartByUserID, incrementQuantity, removeCartByUserID, updateQuantityCartByProductID } from "../services/cartService";
+import { useNavigate } from "react-router-dom";
 
 type ActionUpdateQuantityProps = {
     type: "UPDATE" | "INCREMENT" | "DECREMENT" | "REMOVE"
 }
+
 
 export const useCartQuery = () => {
     const { data, ...cartquery } = useQuery({
@@ -18,15 +20,17 @@ export const useCartQuery = () => {
 }
 
 export const useAddToCart = () => {
-    const queryClient = useQueryClient()
+    const queryClient = useQueryClient();
+    const navigate = useNavigate()
     const mutation = useMutation({
         mutationFn: async ({ productID, quantity = 1 }: { productID: string, quantity: number }) => {
-            await addToCart({ productID, quantity });
+            return await addToCart({ productID, quantity });
         },
         onSuccess: () => {
             queryClient.invalidateQueries({
                 queryKey: ['CART']
-            })
+            });
+            navigate('/cart')
         }
     })
     return mutation
@@ -35,20 +39,17 @@ export const useAddToCart = () => {
 export const useUpdateQuantity = ({ type }: ActionUpdateQuantityProps) => {
     const queryClient = useQueryClient();
     const mutation = useMutation({
-        mutationFn: async ({ productID, quantity }: { productID: string, quantity: number }) => {
+        mutationFn: async ({ productID, quantity = 1 }: { productID: string, quantity?: number }) => {
             switch (type) {
                 case "UPDATE":
-                    await updateQuantityCartByProductID({ productID, quantity });
-                    break;
+                    return await updateQuantityCartByProductID({ productID, quantity });
                 case "INCREMENT":
-                    await incrementQuantity({ productID });
-                    break;
+                     return await incrementQuantity({ productID });
                 case "DECREMENT":
-                    await decrementQuantity({ productID });
-                    break;
+                    return await decrementQuantity({ productID });
                 case "REMOVE":
-                    await removeCartByUserID({ productID });
-                    break;
+                    if (!confirm("Are you sure you want to cart?")) break;
+                    return await removeCartByUserID({ productID });
                 default: return {};
             }
         },
