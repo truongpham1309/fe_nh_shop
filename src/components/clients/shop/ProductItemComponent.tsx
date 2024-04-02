@@ -36,7 +36,7 @@ const ProductItemComponent = ({ product }: { product: TProduct }) => {
                             Quick View
                         </button>
                     </Link>
-                        <button style={{ height: 50 }} onClick={() => mutate({productID: product._id, quantity: 1})} className="btn product-action__addtocart bg-white">
+                        <button style={{ height: 50 }} disabled={isPending} onClick={() => mutate({productID: product._id, quantity: 1})} className="btn product-action__addtocart bg-white">
                             Add To Cart
                         </button>
                     <div className="product-actions-more">
