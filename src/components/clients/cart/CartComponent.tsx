@@ -1,7 +1,6 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useCartQuery, useUpdateQuantity } from "../../../hooks/useCart";
 import ServiceHome from "../home/ServiceHome";
-import BannerHome from './../home/BannerHome';
 import { faMinus, faPlus, faTrash } from "@fortawesome/free-solid-svg-icons";
 import { useSessionStorage } from "../../../hooks/useLocal";
 import { Link, useNavigate } from "react-router-dom";
@@ -10,7 +9,6 @@ import Swal from "sweetalert2";
 import Loading from "../Loading";
 import CartEmpty from "./CartEmpty";
 import { TCart } from "../../../types/cart";
-import { TProduct } from "../../../types/products";
 
 const CartComponent = () => {
 
@@ -20,8 +18,6 @@ const CartComponent = () => {
     const { mutate: decrement } = useUpdateQuantity({ type: "DECREMENT" });
     const [token] = useSessionStorage('token', "");
     const navigate = useNavigate();
-    console.table(data);
-    
 
     useEffect(() => {
         if (!token) {
@@ -43,11 +39,8 @@ const CartComponent = () => {
     if (isLoading) return <Loading />
 
     if (isError || data.items.length === 0) return <CartEmpty />
-
-
     return (
         <>
-            <BannerHome />
             <section className="h-100 gradient-custom">
                 <div className="container py-5">
                     <div className="row d-flex justify-content-center my-4">
@@ -96,11 +89,11 @@ const CartComponent = () => {
                                                 </button>
                                                 {/* Data */}
                                             </div>
-                                            <div className="col-lg-4 col-md-6 mb-4 mb-lg-0">
+                                            <div className="col-lg-4 col-md-6 mb-4 mb-lg-0 ">
                                                 {/* Quantity */}
                                                 <div className="d-flex mb-4" style={{ maxWidth: 300 }}>
                                                     <button
-                                                        className="btn btn-primary px-3 me-2"
+                                                        className="btn btn-primary px-3 me-2 h-10"
                                                         onClick={() => decrement({ productID: item.productID._id })}
                                                     >
                                                         <FontAwesomeIcon icon={faMinus} />
@@ -111,6 +104,7 @@ const CartComponent = () => {
                                                             min={0}
                                                             name="quantity"
                                                             value={item.quantity}
+                                                            readOnly
                                                             type="number"
                                                             className="form-control"
                                                         />
@@ -119,7 +113,7 @@ const CartComponent = () => {
                                                         </label>
                                                     </div>
                                                     <button
-                                                        className="btn btn-primary px-3 ms-2"
+                                                        className="btn btn-primary px-3 ms-2 h-10"
                                                         onClick={() => increment({ productID: item.productID._id })}
                                                     >
                                                         <FontAwesomeIcon icon={faPlus} />
@@ -175,9 +169,12 @@ const CartComponent = () => {
                                             </span>
                                         </li>
                                     </ul>
-                                    <button type="button" className="btn btn-primary btn-lg btn-block">
-                                        Go to checkout
-                                    </button>
+                                    <Link to={`/checkout`}>
+                                        <button type="button" className="btn btn-primary btn-lg btn-block">
+                                            Go to checkout
+                                        </button>
+                                    </Link>
+
                                 </div>
                             </div>
                         </div>

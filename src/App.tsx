@@ -10,6 +10,7 @@ import { configUseAxios } from "./configs/axios";
 import "react-toastify/ReactToastify.css"
 import RegisterComponent from "./components/clients/login/RegisterComponent";
 import "bootstrap/dist/css/bootstrap.min.css";
+import OrderList from "./pages/views/order/OrderList";
 
 
 configUseAxios();
@@ -25,6 +26,7 @@ const App = () => {
             <Route path="products/:id/detail" element={<ProductDetailPage />} />
             <Route path="/cart" element={<CartComponent />} />
             <Route path="/checkout" element={<CheckOutComponent />} />
+            <Route path="/order" element={<OrderList />} />
           </Route>
           <Route path="/login" element={<LoginComponent />} />
           <Route path="/register" element={<RegisterComponent />} />

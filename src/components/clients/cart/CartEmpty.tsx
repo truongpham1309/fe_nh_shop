@@ -26,10 +26,18 @@ const CartEmpty = () => {
                                 <h4>Add something to make me happy :)</h4>
                                 <Link
                                     to="/products"
-                                    className="btn btn-primary cart-btn-transform m-3"
+                                    className="btn btn-primary cart-btn-transform py-2 m-3"
                                     data-abc="true"
                                 >
                                     Continue shopping
+                                </Link>
+
+                                <Link
+                                    to="/order"
+                                    className="btn btn-primary cart-btn-transform py-2 m-3"
+                                    data-abc="true"
+                                >
+                                    Continue order
                                 </Link>
                             </div>
                         </div>

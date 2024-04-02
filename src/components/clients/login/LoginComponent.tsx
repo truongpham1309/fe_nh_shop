@@ -4,10 +4,11 @@ import { ToastContainer, toast } from "react-toastify";
 import { authorizationContext } from "../../../contexts/Authenzication";
 import { useLogin } from "../../../hooks/useLogin";
 import "./../../../sass/login.scss";
+import { useLocalStorage, useSessionStorage } from "../../../hooks/useLocal";
 
 const LoginComponent = () => {
     const { login, onLogin } = useLogin({ type: 'LOGIN' });
-    const [token] = useContext(authorizationContext);
+    const [token] = useSessionStorage("token", "");
     const navigate = useNavigate();
     useEffect(() => {
         if (token) {
@@ -49,6 +50,7 @@ const LoginComponent = () => {
                                     <input
                                         type="email"
                                         id="email"
+                                        autoComplete=""
                                         {...login.register("email", {required: true})}
                                         className="bg-gray-50 border outline-none border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 "
                                         placeholder="name@company.com"
@@ -66,6 +68,7 @@ const LoginComponent = () => {
                                         type="password"
                                         {...login.register("password", {required: true})}
                                         id="password"
+                                        autoComplete=""
                                         placeholder="••••••••"
                                         className="bg-gray-50 border outline-none border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 "
                                     />
@@ -82,7 +85,7 @@ const LoginComponent = () => {
                                 </div>
                                 <button
                                     type="submit"
-                                    className="w-full btn btn-primary bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center "
+                                    className="w-full h-10 btn btn-primary bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center "
                                 >
                                     Sign in
                                 </button>
