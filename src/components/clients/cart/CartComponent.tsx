@@ -37,12 +37,11 @@ const CartComponent = () => {
     }, [token, navigate]);
 
     if (isLoading) return <Loading />
-
     if (isError || data.items.length === 0) return <CartEmpty />
     return (
         <>
-            <section className="h-100 gradient-custom">
-                <div className="container py-5">
+            <section className="gradient-custom">
+                <div className="container">
                     <div className="row d-flex justify-content-center my-4">
                         <div className="col-md-8">
                             <div className="card mb-4">
