@@ -1,5 +1,7 @@
+import { faClipboardList } from "@fortawesome/free-solid-svg-icons"
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { Link } from "react-router-dom"
-import { Icon1, Icon2, Icon3, Icon4, Logo } from "../../assets"
+import { Icon1, Icon3, Icon4, Logo } from "../../assets"
 
 const HeaderClient = () => {
     return (
@@ -44,9 +46,10 @@ const HeaderClient = () => {
                                 </Link>
                             </div>
                             <div className="header-item-user">
-                                <span>
-                                    <img src={Icon2} />
-                                </span>
+                                <Link to={'/order'}>
+                                    <FontAwesomeIcon icon={faClipboardList} style={{fontWeight: 'bold'}} size="2x" />
+                                    
+                                </Link>
                             </div>
                             <div className="header-item-user">
                                 <Link to="/product/detail">

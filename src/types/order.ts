@@ -31,7 +31,8 @@ export type TOrder = {
     },
     totalPrice: number,
     paymentType: "COD" | "ONLINE",
-    isCancel: boolean,
+    status: 'cancelled'| 'pendding'| 'confirm'| 'shipped'| 'delivered',
+    createdAt: string,
 
 }
 

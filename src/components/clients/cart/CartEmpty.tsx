@@ -3,7 +3,7 @@ import "./../../../css/cart-empty.css"
 
 const CartEmpty = () => {
     return (
-        <div className="container-fluid">
+        <div className="">
             <div className="row">
                 <div className="col-md-12">
                     <div className="card">

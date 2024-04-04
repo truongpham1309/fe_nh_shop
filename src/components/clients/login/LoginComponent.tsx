@@ -1,10 +1,10 @@
-import { useContext, useEffect } from "react";
+import { useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
-import { authorizationContext } from "../../../contexts/Authenzication";
+import { useSessionStorage } from "../../../hooks/useLocal";
 import { useLogin } from "../../../hooks/useLogin";
 import "./../../../sass/login.scss";
-import { useLocalStorage, useSessionStorage } from "../../../hooks/useLocal";
+import Swal from "sweetalert2";
 
 const LoginComponent = () => {
     const { login, onLogin } = useLogin({ type: 'LOGIN' });
@@ -12,10 +12,15 @@ const LoginComponent = () => {
     const navigate = useNavigate();
     useEffect(() => {
         if (token) {
-            toast.success("Bạn đã đăng nhập!");
-            setTimeout(() => {
-                navigate('/');
-            }, 1000)
+            Swal.fire({
+                icon: 'success',
+                title: "Bạn đã đăng nhập!",
+                confirmButtonText: 'Quay về',
+                allowOutsideClick: false,
+            }).then((result) => {
+                if (result.isConfirmed) navigate(-1);
+                
+            })
         }
     }, [])
     return (

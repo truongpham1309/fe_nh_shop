@@ -11,6 +11,7 @@ import "react-toastify/ReactToastify.css"
 import RegisterComponent from "./components/clients/login/RegisterComponent";
 import "bootstrap/dist/css/bootstrap.min.css";
 import OrderList from "./pages/views/order/OrderList";
+import OrderDetail from "./pages/views/orderDetail/OrderDetail";
 
 
 configUseAxios();
@@ -27,6 +28,7 @@ const App = () => {
             <Route path="/cart" element={<CartComponent />} />
             <Route path="/checkout" element={<CheckOutComponent />} />
             <Route path="/order" element={<OrderList />} />
+            <Route path="/order/detail/:id" element={<OrderDetail />} />
           </Route>
           <Route path="/login" element={<LoginComponent />} />
           <Route path="/register" element={<RegisterComponent />} />

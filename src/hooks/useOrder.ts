@@ -1,15 +1,15 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query"
-import { createOrderByUserID, getAllOrderByUserID } from "../services/orderService"
+import { cancelOrder, createOrderByUserID, getAllOrderByUserID, getDetailsOrder } from "../services/orderService"
 import { TInputOrder } from "../types/order";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 
 
-export const useQueryOrder = () => {
+export const useQueryOrder = ({ _id }: { _id?: string }) => {
     const order = useQuery({
-        queryKey: ['ORDER'],
+        queryKey: ['ORDER', _id],
         queryFn: async () => {
-            return await getAllOrderByUserID();
+            return _id ? await getDetailsOrder(_id) : await getAllOrderByUserID();
         },
     })
 
@@ -24,6 +24,7 @@ export const useOrderMutation = ({ type }: { type: "ADD" | "UPDATE" | "CANCEL" }
         mutationFn: async (order: any) => {
             switch (type) {
                 case "ADD": return await createOrderByUserID((order as TInputOrder));
+                case "CANCEL": return window.confirm('Are you sure you want to cancel?') ?? await cancelOrder(order);
             }
         },
         onSuccess: () => {
