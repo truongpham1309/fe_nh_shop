@@ -4,10 +4,10 @@ export const configUseAxios = () => {
     axios.defaults.timeout = 15000;
     axios.interceptors.request.use(
         (config) => {
-            const token = sessionStorage.getItem('token');
-            if (token) {
-                const tokenParse = JSON.parse(token);
-                config.headers.authorization = `Bearer ${tokenParse}`;
+            const users = sessionStorage?.getItem('token')!;
+            if (users) {
+                const tokenParse = JSON.parse(users);
+                config.headers.authorization = `Bearer ${tokenParse?.token}`;
             }
             return config;
         },

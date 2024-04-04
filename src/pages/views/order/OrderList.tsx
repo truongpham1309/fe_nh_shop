@@ -5,13 +5,28 @@ import { useOrderMutation, useQueryOrder } from "../../../hooks/useOrder";
 import { TOrder } from "../../../types/order";
 import { convertToShortDateFormat } from "../../../utils/convertDateFomat";
 import "./../../../css/order-list.css";
+import Swal from "sweetalert2";
 
 const OrderList = () => {
     const { data, isError, isLoading } = useQueryOrder({ _id: "" });
     const { mutation } = useOrderMutation({ type: "CANCEL" });
+    const { mutation: orderUpdate } = useOrderMutation({ type: "UPDATE" });
 
     if (isLoading) return <Loading />
     if (isError || data.length === 0) return <CartEmpty />
+
+    const handleUpdateStatusOrder = (item: TOrder) => {
+        Swal.fire({
+            icon: "question",
+            title: "Bạn đã nhận được hàng?",
+            confirmButtonText: "Đã nhận",
+            showCancelButton: true,
+        }).then((result) => {
+            if (result.isConfirmed) {
+                orderUpdate.mutate(item);
+            }
+        })
+    }
     return (
         <div className="container mt-5">
             <table className="table table-borderless main">
@@ -33,11 +48,11 @@ const OrderList = () => {
 
                             <td className="order-color">{index + 1}</td>
                             <td>{convertToShortDateFormat(item.createdAt)}</td>
-                            <Link to={`/order/detail/${item._id}`}>
-                                <td className="d-flex align-items-center">
+                            <td className="d-flex align-items-center">
+                                <Link to={`/order/detail/${item._id}`}>
                                     <span className="ml-2">{item.userID.username}</span>
-                                </td>
-                            </Link>
+                                </Link>
+                            </td>
                             <td>
                                 <div className="dropdown">
                                     <button
@@ -104,7 +119,16 @@ const OrderList = () => {
                                     </button>
                                 </div>
                             </td>
-                            <td>{item.status === "pendding" ? <button className="btn btn-danger" onClick={() => mutation.mutate(item)}>Hủy</button> : <>Không thể hủy</>}</td>
+                            <td>
+                                {item.status === "pendding" ?
+                                    <button className="btn btn-danger" onClick={() => mutation.mutate(item)}>
+                                        Cancel
+                                    </button> :
+                                    (item.status === "shipped" &&
+                                        <button onClick={() => handleUpdateStatusOrder(item)} className="btn btn-primary">
+                                            Receive
+                                        </button>)}
+                            </td>
                         </tr>
                     ))}
                 </tbody>

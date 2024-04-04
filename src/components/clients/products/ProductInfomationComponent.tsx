@@ -1,6 +1,6 @@
 import { Rate } from "antd";
 import { useNavigate, useParams } from "react-router-dom";
-import useProductQuery from "../../../hooks/useProductQuery";
+import useProductQuery from "../../../hooks/useProduct";
 import { TProduct } from "../../../types/products";
 import Loading from "../Loading";
 import ProductsRelatedComponent from "./ProductsRelatedComponent";

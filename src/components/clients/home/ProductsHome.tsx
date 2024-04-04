@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom"
-import useProductQuery from "../../../hooks/useProductQuery"
+import useProductQuery from "../../../hooks/useProduct"
 import Loading from "../Loading";
 import ProductItemComponent from "../shop/ProductItemComponent";
 import { TProduct } from "../../../types/products";
@@ -18,7 +18,7 @@ const ProductsHome = () => {
                         </div>
                         <div className="section-body">
                             <div className="product-list">
-                                {(data?.products as TProduct[]).map(product => (
+                                {(data?.products as TProduct[])?.map(product => (
                                     <ProductItemComponent key={product._id} product={product} />
                                 ))}
                             </div>

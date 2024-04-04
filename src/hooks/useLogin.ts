@@ -22,13 +22,13 @@ export const useLogin = ({ type }: TAction) => {
                 const data = await loginService(user);
                 if (token) {
                     removeToken();
-                    setToken(data.token);
-                    toast.success("Đăng nhập thành công");
+                    setToken(data);
+                    toast.success("Đăng nhập thành công!");
                     setTimeout(() => {
                         navigate('/');
                     }, 1000)
                 }
-                setToken(data.token);
+                setToken(data);
                 toast.success("Đăng nhập thành công");
                 setTimeout(() => {
                     navigate('/');

@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import useProductQuery from "../../../hooks/useProductQuery";
+import useProductQuery from "../../../hooks/useProduct";
 import { TProduct } from "../../../types/products";
 import Loading from "../Loading";
 import ProductItemComponent from "./ProductItemComponent";
