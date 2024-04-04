@@ -40,3 +40,10 @@ export const getDetailsOrder = async (_id: string) => {
         console.log(error);
     }
 }
+export const updateStatusOrder = async (_id: string) => {
+    try {
+        return await axios.put(`/orders/${_id}`);
+    } catch (error: any) {
+        toast.error(error.response.message);
+    }
+}

@@ -12,11 +12,15 @@ import RegisterComponent from "./components/clients/login/RegisterComponent";
 import "bootstrap/dist/css/bootstrap.min.css";
 import OrderList from "./pages/views/order/OrderList";
 import OrderDetail from "./pages/views/orderDetail/OrderDetail";
+import AdminLayout from "./layouts/admin/AdminLayout";
+import ProductsDashBoard from "./pages/admin/products/ProductsDashBoard";
+import { useSessionStorage } from "./hooks/useLocal";
 
 
 configUseAxios();
 
 const App = () => {
+  const [token] = useSessionStorage("token", "");
   return (
     <>
       <BrowserRouter>
@@ -29,6 +33,10 @@ const App = () => {
             <Route path="/checkout" element={<CheckOutComponent />} />
             <Route path="/order" element={<OrderList />} />
             <Route path="/order/detail/:id" element={<OrderDetail />} />
+          </Route>
+
+          <Route path="admin" element={<AdminLayout data={ token } />} >
+            <Route path="/admin/products" element={<ProductsDashBoard />} />
           </Route>
           <Route path="/login" element={<LoginComponent />} />
           <Route path="/register" element={<RegisterComponent />} />

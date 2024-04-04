@@ -1,5 +1,5 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query"
-import { cancelOrder, createOrderByUserID, getAllOrderByUserID, getDetailsOrder } from "../services/orderService"
+import { cancelOrder, createOrderByUserID, getAllOrderByUserID, getDetailsOrder, updateStatusOrder } from "../services/orderService"
 import { TInputOrder } from "../types/order";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
@@ -24,6 +24,7 @@ export const useOrderMutation = ({ type }: { type: "ADD" | "UPDATE" | "CANCEL" }
         mutationFn: async (order: any) => {
             switch (type) {
                 case "ADD": return await createOrderByUserID((order as TInputOrder));
+                case "UPDATE": return await updateStatusOrder(order._id);
                 case "CANCEL": return window.confirm('Are you sure you want to cancel?') ?? await cancelOrder(order);
             }
         },
@@ -37,7 +38,6 @@ export const useOrderMutation = ({ type }: { type: "ADD" | "UPDATE" | "CANCEL" }
     const onSubmit: SubmitHandler<any> = (data) => {
         mutation.mutate(data);
         navigate('/order');
-        // console.log(data);
     }
 
     return { ...form, mutation, onSubmit }
