@@ -14,3 +14,16 @@ export type TProduct = {
     description: string,
     tags: string[],
 }
+
+export type TInputProduct = {
+    _id?:string,
+    product_name: string,
+    price: number,
+    feature: boolean,
+    image: string,
+    gallery: string[],
+    category: string,
+    countStocks: number,
+    description: string,
+    tags: string[],
+}

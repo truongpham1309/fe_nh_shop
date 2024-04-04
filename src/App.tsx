@@ -15,12 +15,14 @@ import OrderDetail from "./pages/views/orderDetail/OrderDetail";
 import AdminLayout from "./layouts/admin/AdminLayout";
 import ProductsDashBoard from "./pages/admin/products/ProductsDashBoard";
 import { useSessionStorage } from "./hooks/useLocal";
+import ProductsCreateAdmin from "./pages/admin/products/ProductsCreateAdmin";
+import ProductEditAdmin from "./pages/admin/products/ProductEditAdmin";
 
 
 configUseAxios();
 
 const App = () => {
-  const [token] = useSessionStorage("token", "");
+  const [token] = useSessionStorage("token", {});
   return (
     <>
       <BrowserRouter>
@@ -36,7 +38,10 @@ const App = () => {
           </Route>
 
           <Route path="admin" element={<AdminLayout data={ token } />} >
-            <Route path="/admin/products" element={<ProductsDashBoard />} />
+            <Route index element={<ProductsDashBoard />} />
+            <Route path="/admin/product/add" element={<ProductsCreateAdmin />} />
+            <Route path="/admin/products/edit/:id" element={<ProductEditAdmin />} />
+            {/* <Route path="/admin/products" element={<ProductsDashBoard />} /> */}
           </Route>
           <Route path="/login" element={<LoginComponent />} />
           <Route path="/register" element={<RegisterComponent />} />

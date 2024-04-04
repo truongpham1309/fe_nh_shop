@@ -54,9 +54,9 @@ const AdminLayout = ({ data, redirectPath = "/login" }: { data: any, redirectPat
                     <div className="mt-4">
                         <ul className="flex flex-col">
                             <li>
-                                <a
+                                <Link
                                     className="text-sm flex items-center lg:px-4 py-2.5 rounded-lg lg:bg-white lg:shadow-xl"
-                                    href="#"
+                                    to="/admin"
                                 >
                                     <div className="lg:mr-2 flex h-8 w-8 items-center justify-center rounded-lg">
                                         <FontAwesomeIcon icon={faHome} />
@@ -64,12 +64,12 @@ const AdminLayout = ({ data, redirectPath = "/login" }: { data: any, redirectPat
                                     <span className="ml-1 opacity-100 hidden lg:block">
                                         Products
                                     </span>
-                                </a>
+                                </Link>
                             </li>
                             <li>
-                                <a
+                                <Link
                                     className="text-sm flex items-center lg:px-4 py-2.5 rounded-lg"
-                                    href="#"
+                                    to="/admin/categories"
                                 >
                                     <div className="lg:mr-2 flex h-8 w-8 items-center justify-center rounded-lg">
                                         <svg
@@ -90,18 +90,18 @@ const AdminLayout = ({ data, redirectPath = "/login" }: { data: any, redirectPat
                                     <span className="ml-1 opacity-100 hidden lg:block">
                                         Categories
                                     </span>
-                                </a>
+                                </Link>
                             </li>
                             <li>
-                                <a
+                                <Link
                                     className="text-sm flex items-center lg:px-4 py-2.5 rounded-lg"
-                                    href="#"
+                                    to="/admin/orders"
                                 >
                                     <div className="lg:mr-2 flex h-8 w-8 items-center justify-center rounded-lg">
                                         <FontAwesomeIcon icon={faBookOpenReader} />
                                     </div>
                                     <span className="ml-1 opacity-100 hidden lg:block">Order</span>
-                                </a>
+                                </Link>
                             </li>
                             <li>
                                 <a
@@ -131,12 +131,12 @@ const AdminLayout = ({ data, redirectPath = "/login" }: { data: any, redirectPat
                                     name="search"
                                     type="text"
                                     autoComplete="off"
-                                    className="h-10 outline-none py-1 pl-4 pr-10 w-44 placeholder:italic bg-[#233a50] text-[#ABB7C4]"
+                                    className="h-10 outline-none py-1 pl-4 pr-10 w-44 placeholder:italic  text-[#ABB7C4]"
                                     placeholder="Search..."
                                 />
                                 <button
                                     type="submit"
-                                    className="absolute top-0 right-0 h-full w-10 text-[#F27221] text-lg bg-[#233a50]"
+                                    className="absolute top-0 right-0 h-full w-10 text-[#F27221] text-lg "
                                 >
                                     <i className="fa-solid fa-magnifying-glass" />
                                 </button>
