@@ -1,10 +1,14 @@
+import { useNavigate } from "react-router-dom";
 import { useCartQuery } from "../../../hooks/useCart"
+import { useSessionStorage } from "../../../hooks/useLocal";
 import { useOrderMutation } from "../../../hooks/useOrder";
 import { TCart } from "../../../types/cart";
 import Loading from "../Loading";
 import CartEmpty from "../cart/CartEmpty";
 import ServiceHome from "../home/ServiceHome"
 import "./../../../sass/checkout.scss"
+import { useEffect } from "react";
+import Swal from "sweetalert2";
 
 const CheckOutComponent = () => {
 
@@ -12,6 +16,26 @@ const CheckOutComponent = () => {
     const { register, formState: { errors }, handleSubmit, onSubmit } = useOrderMutation({ type: "ADD" });
     if (isLoading) return <Loading />
     if (isError) return <CartEmpty />
+    const [token] = useSessionStorage('token', "");
+    const navigate = useNavigate();
+
+    useEffect(() => {
+        if (!token) {
+            Swal.fire({
+                icon: 'warning',
+                title: "Bạn chưa đăng nhập!",
+                confirmButtonText: 'Đăng nhập',
+                cancelButtonText: 'Hủy',
+                showCancelButton: true
+            }).then((result) => {
+                if (result.isConfirmed) navigate('/login');
+                else if (result.dismiss === Swal.DismissReason.cancel) {
+                    navigate(-1);
+                }
+            })
+        }
+    }, [token, navigate]);
+    
     return (
         <>
             <div className="flex flex-col items-center border-b bg-white py-4 sm:flex-row sm:px-10 lg:px-20 xl:px-32">

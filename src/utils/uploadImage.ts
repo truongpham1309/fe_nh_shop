@@ -1,4 +1,11 @@
-import axios from "axios";
+import axios from 'axios';
+
+// Tạo instance Axios mới không chứa token
+const axiosInstance = axios.create({
+    headers: {
+        'Content-Type': 'multipart/form-data'
+    }
+});
 
 export const uploadImage = async (files: any[]) => {
     const PRESET_NAME: string = 'nh_shop';
@@ -10,16 +17,19 @@ export const uploadImage = async (files: any[]) => {
 
     formData.append("upload_preset", PRESET_NAME);
     formData.append("folder", FOLDER_NAME);
-
-
     formData.append("file", files[0]);
 
     console.log(formData);
 
-    const { data } = await axios.post(api, formData, { headers: { 'Content-Type': 'multipart/form-data' } });
-    console.log(data);
-
-    return data.secure_url
+    try {
+        // Ghi đè cấu hình header cho yêu cầu này:
+        const { data } = await axiosInstance.post(api, formData);
+        console.log(data);
+        return data.secure_url;
+    } catch (error) {
+        console.error(error);
+        return null;
+    }
 
 }
 
@@ -34,12 +44,11 @@ export const uploadSomeImage = async (files: any[]) => {
     formData.append("upload_preset", PRESET_NAME);
     formData.append("folder", FOLDER_NAME);
 
-
     const listimages = [];
     for (const image of files) {
         try {
             formData.append("file", image);
-            const { data } = await axios.post(api, formData, { headers: { 'Content-Type': 'multipart/form-data' } });
+            const { data } = await axiosInstance.post(api, formData);
             listimages.push(data.secure_url);
         } catch (error) {
             console.log(error);

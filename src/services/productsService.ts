@@ -55,3 +55,13 @@ export const updateProductsByID = async (product: TInputProduct) => {
         console.log(error);
     }
 }
+
+export const getProductDetailAdmin = async (id: string) => {
+    try {
+        const { data } = await axios.get(`/products/admin/${id}`);
+        return data
+    } catch (error) {
+        console.log(error);
+        return {};
+    }
+}
