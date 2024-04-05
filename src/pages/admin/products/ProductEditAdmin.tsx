@@ -1,18 +1,25 @@
+import { useQuery } from "@tanstack/react-query";
 import { useParams } from "react-router-dom";
 import Loading from "../../../components/clients/Loading";
 import { useCategoryQuery } from "../../../hooks/useCategoryQuery";
-import useProductQuery, { useProductMutation } from "../../../hooks/useProduct";
+import { useProductMutation } from "../../../hooks/useProduct";
+import { getProductDetailAdmin } from "../../../services/productsService";
 import { useEffect } from "react";
 
 const ProductEditAdmin = () => {
     const { data: categories, isLoading, isError } = useCategoryQuery();
     const { id } = useParams();
-    const { data } = useProductQuery({ id })
+    const { data } = useQuery({
+        queryKey: ['PRODUCTS', id],
+        queryFn: async () => {
+            return await getProductDetailAdmin((id as string));
+        }
+    })
     const { onSubmit, handleSubmit, errors, register, reset } = useProductMutation({ type: "UPDATE" });
 
     useEffect(() => {
-        reset(data)
-    }, [id, data])
+        reset(data);
+    }, [data, id])
 
     if (isLoading) return <Loading />
     if (isError) return <>Product ADD error</>
@@ -35,7 +42,7 @@ const ProductEditAdmin = () => {
                 <div className="row mb-3">
                     <div className="col text-left">
                         <label className='text-left m-0'>Image</label>
-                        <input type="text" {...register("image", { required: true })} className="form-control" placeholder="Image" />
+                        <input type="file" {...register("image")} className="form-control" placeholder="Image" />
                         {errors.image && <span className="text-red-500 fs-6">Image is required!</span>}
                     </div>
                     <div className="col text-left">
@@ -55,7 +62,6 @@ const ProductEditAdmin = () => {
                     <div className="col text-left">
                         <label className='text-left m-0'>Category</label>
                         <select className="form-control" {...register("category", { required: true })}>
-                            <option className="form-control" value="">Select category</option>
                             {categories?.map((cate: any, index: number) => (
                                 <option className="form-control" key={index} value={cate._id}>{cate.category_name}</option>
                             ))}

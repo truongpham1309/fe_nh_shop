@@ -20,7 +20,7 @@ export type TInputProduct = {
     product_name: string,
     price: number,
     feature: boolean,
-    image: string,
+    image: any,
     gallery: string[],
     category: string,
     countStocks: number,

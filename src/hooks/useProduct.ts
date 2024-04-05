@@ -3,6 +3,7 @@ import { SubmitHandler, useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import { createProduct, getAllProducts, getDetailProduct, removeProduct, updateProductsByID } from "../services/productsService";
 import { TInputProduct } from "../types/products";
+import { uploadImage, uploadSomeImage } from "../utils/uploadImage";
 
 const useProductQuery = ({ id = "", page = 1, limit = 0 }) => {
     const { data, isLoading, isError, ...rest } = useQuery({
@@ -31,8 +32,11 @@ export const useProductMutation = ({ type }: { type: 'ADD' | "UPDATE" | "REMOVE"
                 case "REMOVE":
                     return window.confirm("Bạn có chắc chắn muốn xóa?") && await removeProduct(product._id);
                 case "ADD":
-                    return createProduct(product);
-                case "UPDATE": return await updateProductsByID(product);
+                    const gallery_url = await uploadSomeImage(product.gallery);
+                    const newProduct = { ...product, gallery: [...gallery_url] };
+                    return await createProduct(newProduct);
+                case "UPDATE":
+                    return await updateProductsByID(product);
                 default: return {};
             }
         },
@@ -45,15 +49,17 @@ export const useProductMutation = ({ type }: { type: 'ADD' | "UPDATE" | "REMOVE"
     })
 
     const onSubmit: SubmitHandler<any> = async (product: TInputProduct) => {
+
+        const secret_url = typeof product.image === "string" ? product.image : await uploadImage(product.image);
         const currentProduct = {
             _id: product._id,
             product_name: product.product_name,
             price: product.price,
             category: product.category,
-            image: product.image,
-            gallery: ['https://res.cloudinary.com/dhfryzrce/image/upload/v1710856000/react_image/vbxldpakol3z1wz2z7dg.png'],
+            image: secret_url,
             feature: product.feature,
             countStocks: product.countStocks,
+            gallery: [...product.gallery],
         }
         const newProduct = typeof product.tags === "string" ?
             { ...currentProduct, tags: [product.tags] } : { ...currentProduct, tags: [...product.tags] };

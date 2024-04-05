@@ -17,6 +17,7 @@ import ProductsDashBoard from "./pages/admin/products/ProductsDashBoard";
 import { useSessionStorage } from "./hooks/useLocal";
 import ProductsCreateAdmin from "./pages/admin/products/ProductsCreateAdmin";
 import ProductEditAdmin from "./pages/admin/products/ProductEditAdmin";
+import PrivateRouterPermission from "./router/PrivateRouterPermission";
 
 
 configUseAxios();
@@ -37,7 +38,7 @@ const App = () => {
             <Route path="/order/detail/:id" element={<OrderDetail />} />
           </Route>
 
-          <Route path="admin" element={<AdminLayout data={ token } />} >
+          <Route path="admin" element={<AdminLayout data={token} />} >
             <Route index element={<ProductsDashBoard />} />
             <Route path="/admin/product/add" element={<ProductsCreateAdmin />} />
             <Route path="/admin/products/edit/:id" element={<ProductEditAdmin />} />

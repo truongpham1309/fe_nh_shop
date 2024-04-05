@@ -28,20 +28,16 @@ const ProductsCreateAdmin = () => {
                 <div className="row mb-3">
                     <div className="col text-left">
                         <label className='text-left m-0'>Image</label>
-                        <input type="text" {...register("image", { required: true })} className="form-control" placeholder="Image" />
+                        <input type="file" {...register("image", { required: true })} className="form-control" placeholder="Image" />
                         {errors.image && <span className="text-red-500 fs-6">Image is required!</span>}
                     </div>
+
                     <div className="col text-left">
-                        <label className='text-left m-0'>Tags</label>
-                        <select className="form-control" {...register("tags", { required: true })}>
-                            <option className="form-control" value="">Select tag</option>
-                            <option className="form-control" value="Sofa">Sofa</option>
-                            <option className="form-control" value="Home">Home</option>
-                            <option className="form-control" value="Chair">Chair</option>
-                            <option className="form-control" value="Bed">Bed</option>
-                        </select>
-                        {errors.tags && <span className="text-red-500 fs-6">Tags is required!</span>}
+                        <label className='text-left m-0'>Gallery</label>
+                        <input type="file" multiple {...register("gallery", { required: true })} className="form-control" placeholder="Image" />
+                        {errors.image && <span className="text-red-500 fs-6">Image is required!</span>}
                     </div>
+
                 </div>
 
                 <div className="row mb-3">
@@ -59,6 +55,20 @@ const ProductsCreateAdmin = () => {
                         <label className='text-left m-0'>Quantity</label>
                         <input type="number" {...register("countStocks", { required: true })} className="form-control" placeholder="Quantity" />
                         {errors.countStocks && <span className="text-red-500 fs-6">Quantity is required!</span>}
+                    </div>
+                </div>
+
+                <div className="row mb-3">
+                    <div className="col text-left">
+                        <label className='text-left m-0'>Tags</label>
+                        <select className="form-control" {...register("tags", { required: true })}>
+                            <option className="form-control" value="">Select tag</option>
+                            <option className="form-control" value="Sofa">Sofa</option>
+                            <option className="form-control" value="Home">Home</option>
+                            <option className="form-control" value="Chair">Chair</option>
+                            <option className="form-control" value="Bed">Bed</option>
+                        </select>
+                        {errors.tags && <span className="text-red-500 fs-6">Tags is required!</span>}
                     </div>
                 </div>
 

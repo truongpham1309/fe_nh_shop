@@ -42,7 +42,7 @@ const ProductsDashBoard = () => {
       title: "Image",
       key: "image",
       dataIndex: "image",
-      render: (image) => <img src={image} alt={image} />
+      render: (image) => <img className="w-[30%]" src={image} alt={image} />
     },
     {
       title: "Feature",

@@ -6,7 +6,6 @@ export const addToCart = async ({ productID, quantity = 1 }: { productID: string
         await axios.post("/cart/add-to-cart", { productID, quantity });
         toast.success("Đã thêm sản phẩm vào giỏ hàng");
     } catch (error: any) {
-        toast.error(error.message);
         console.log(error);
     }
 }

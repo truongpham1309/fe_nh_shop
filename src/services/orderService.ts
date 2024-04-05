@@ -7,7 +7,6 @@ export const getAllOrderByUserID = async () => {
         const { data } = await axios.get("/orders/user");
         return data;
     } catch (error) {
-        toast.error("Lỗi hệ thống, thử lại sau ít phút");
         console.log(error);
     }
 }
@@ -45,5 +44,15 @@ export const updateStatusOrder = async (_id: string) => {
         return await axios.put(`/orders/${_id}`);
     } catch (error: any) {
         toast.error(error.response.message);
+    }
+}
+
+export const getAllOrderByAdmin = async () => {
+    try {
+        const { data } = await axios.get('/orders');
+        return data
+    } catch (error: any) {
+        toast.error(error.response.message);
+        console.log(error)
     }
 }

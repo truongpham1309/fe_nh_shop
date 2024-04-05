@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Loading from "../../../components/clients/Loading";
 import CartEmpty from "../../../components/clients/cart/CartEmpty";
 import { useOrderMutation, useQueryOrder } from "../../../hooks/useOrder";
@@ -6,14 +6,33 @@ import { TOrder } from "../../../types/order";
 import { convertToShortDateFormat } from "../../../utils/convertDateFomat";
 import "./../../../css/order-list.css";
 import Swal from "sweetalert2";
+import { useEffect } from "react";
+import { useSessionStorage } from "../../../hooks/useLocal";
 
 const OrderList = () => {
     const { data, isError, isLoading } = useQueryOrder({ _id: "" });
     const { mutation } = useOrderMutation({ type: "CANCEL" });
     const { mutation: orderUpdate } = useOrderMutation({ type: "UPDATE" });
+    const [token] = useSessionStorage('token', {});
+    const navigate = useNavigate();
 
-    if (isLoading) return <Loading />
-    if (isError || data.length === 0) return <CartEmpty />
+    useEffect(() => {
+        if (!token) {
+            Swal.fire({
+                icon: 'warning',
+                title: "Bạn chưa đăng nhập!",
+                confirmButtonText: 'Đăng nhập',
+                cancelButtonText: 'Hủy',
+                showCancelButton: true
+            }).then((result) => {
+                if (result.isConfirmed) navigate('/login');
+                else if (result.dismiss === Swal.DismissReason.cancel) {
+                    navigate(-1);
+                }
+            })
+        }
+    }, [token, navigate]);
+
 
     const handleUpdateStatusOrder = (item: TOrder) => {
         Swal.fire({
@@ -27,6 +46,8 @@ const OrderList = () => {
             }
         })
     }
+    if (isLoading) return <Loading />
+    if (isError || data.length === 0) return <CartEmpty />
     return (
         <div className="container mt-5">
             <table className="table table-borderless main">
