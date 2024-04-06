@@ -1,6 +1,7 @@
 import { faBookOpenReader, faHome } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Link, Outlet, useNavigate } from 'react-router-dom'
+import { ToastContainer } from 'react-toastify';
 import Swal from 'sweetalert2';
 
 const AdminLayout = ({ data, redirectPath = "/login" }: { data: any, redirectPath?: any }) => {
@@ -22,7 +23,7 @@ const AdminLayout = ({ data, redirectPath = "/login" }: { data: any, redirectPat
             }
         })
     } else {
-        if (data.user.role !== "admin") {
+        if (data?.user?.role !== "admin") {
             Swal.fire({
                 icon: 'warning',
                 title: "Bạn không phải admin!",
@@ -38,6 +39,7 @@ const AdminLayout = ({ data, redirectPath = "/login" }: { data: any, redirectPat
 
     return (
         <div className="flex min-h-screen w-full bg-[#f8f9fa]">
+            <ToastContainer />
             <div className="lg:w-64 lg:px-4 pl-4 lg:min-w-[256px] duration-500">
                 <div className="h-full w-8 lg:w-full">
                     <a
@@ -104,17 +106,17 @@ const AdminLayout = ({ data, redirectPath = "/login" }: { data: any, redirectPat
                                 </Link>
                             </li>
                             <li>
-                                <a
+                                <Link
                                     className="text-sm flex items-center lg:px-4 py-2.5 rounded-lg"
-                                    href="#"
+                                    to="/"
                                 >
                                     <div className="lg:mr-2 flex h-8 w-8 items-center justify-center rounded-lg">
                                         <i className="fa-solid fa-user" />
                                     </div>
                                     <span className="ml-1 opacity-100 hidden lg:block">
-                                        Authors
+                                        Client
                                     </span>
-                                </a>
+                                </Link>
                             </li>
                         </ul>
                     </div>

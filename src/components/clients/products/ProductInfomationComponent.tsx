@@ -25,7 +25,9 @@ const ProductInfomationComponent = () => {
                         <div className="detail-product-img">
                             <div className="detail-product-img1">
                                 {product.gallery.map((image, index) => (
-                                    <img src={image} alt={`gallery ${index}`} />
+                                    <div key={index}>
+                                        <img className="w-[150px]" src={image} alt={`gallery ${index}`} />
+                                    </div>
                                 ))}
                             </div>
                             <div className="detail-product-img2">
@@ -49,14 +51,7 @@ const ProductInfomationComponent = () => {
                                        {product.description}
                                     </p>
                                 </div>
-                                <div className="detail-size">
-                                    <h4 className="text-size">Size</h4>
-                                    <div className="size">
-                                        <button className="size-l">L</button>
-                                        <button className="size-m">M</button>
-                                        <button className="size-s">S</button>
-                                    </div>
-                                </div>
+                                
                                 <div className="detail-color">
                                     <h4 className="text-size">Color</h4>
                                     <div className="color">
@@ -83,7 +78,7 @@ const ProductInfomationComponent = () => {
                             </div>
                             <hr className="line-pruduct" />
                             <div className="detail-product-body">
-                                <table>
+                                <table className="table table-borderless">
                                     <tbody>
                                         <tr>
                                             <th>SKU</th>
@@ -98,7 +93,7 @@ const ProductInfomationComponent = () => {
                                         <tr>
                                             <th>Tags</th>
                                             <td>:</td>
-                                            <td className="itemss">{product.tags.map(tag => (<>{tag} </>))}</td>
+                                            <td className="itemss">{product.tags.map((tag, index) => (<span key={index}>{tag} </span>))}</td>
                                         </tr>
                                     </tbody>
                                 </table>

@@ -21,10 +21,14 @@ export const useLogin = ({ type }: TAction) => {
             case "LOGIN":
                 const data = await loginService(user);
                 if (token) {
-                    removeToken();
+                    removeToken("token");
                     setToken(data);
                     toast.success("Đăng nhập thành công!");
                     setTimeout(() => {
+                        if(data.user.role === 'admin') {
+                            navigate('/admin');
+                            return;
+                        }
                         navigate('/');
                     }, 1000)
                 }

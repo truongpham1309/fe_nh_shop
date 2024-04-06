@@ -44,6 +44,7 @@ export const updateStatusOrder = async (_id: string) => {
         return await axios.put(`/orders/${_id}`);
     } catch (error: any) {
         toast.error(error.response.message);
+        console.log(error);
     }
 }
 
