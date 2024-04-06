@@ -42,3 +42,19 @@ export const useOrderMutation = ({ type }: { type: "ADD" | "UPDATE" | "CANCEL" }
 
     return { ...form, mutation, onSubmit }
 }
+
+export const useUpdateStatusOrderByAdmin = () => {
+    const queryClient = useQueryClient();
+    const mutation = useMutation({
+        mutationFn: async (order: any) => {
+            return await updateStatusOrder(order._id);
+        },
+        onSuccess: () => {
+            queryClient.invalidateQueries({
+                queryKey: ['ORDER_ADMIN']
+            })
+        }
+    })
+
+    return {...mutation}
+}

@@ -60,6 +60,7 @@ export const useProductMutation = ({ type }: { type: 'ADD' | "UPDATE" | "REMOVE"
             feature: product.feature,
             countStocks: product.countStocks,
             gallery: [...product.gallery],
+            description: product.description,
         }
         const newProduct = typeof product.tags === "string" ?
             { ...currentProduct, tags: [product.tags] } : { ...currentProduct, tags: [...product.tags] };

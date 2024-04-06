@@ -1,10 +1,10 @@
 import { useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { ToastContainer, toast } from "react-toastify";
+import { ToastContainer } from "react-toastify";
+import Swal from "sweetalert2";
 import { useSessionStorage } from "../../../hooks/useLocal";
 import { useLogin } from "../../../hooks/useLogin";
 import "./../../../sass/login.scss";
-import Swal from "sweetalert2";
 
 const LoginComponent = () => {
     const { login, onLogin } = useLogin({ type: 'LOGIN' });
@@ -15,11 +15,17 @@ const LoginComponent = () => {
             Swal.fire({
                 icon: 'success',
                 title: "Bạn đã đăng nhập!",
-                confirmButtonText: 'Quay về',
+                confirmButtonText: token?.user?.role === "admin" ? "Admin" : "Quay về",
+                showCancelButton: token?.user?.role === "admin" ? true : false,
                 allowOutsideClick: false,
             }).then((result) => {
-                if (result.isConfirmed) navigate(-1);
-                
+                if (result.isConfirmed){
+                    if(token?.user?.role === 'admin') {
+                        navigate("/admin");
+                        return;
+                    }
+                };
+                navigate(-1);
             })
         }
     }, [])

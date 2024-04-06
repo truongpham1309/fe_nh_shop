@@ -31,13 +31,6 @@ tr:nth-child(3) { border: solid thin; }
     box-shadow: none;
 }
 
-.btn{
-
-	    height: 27px;
-    line-height: 11px;
-    color: #fff;
-}
-
 .form-check-input {
     width: 1.15em;
     height: 1.15em;
@@ -45,11 +38,11 @@ tr:nth-child(3) { border: solid thin; }
 
 }
 
-.btn:focus {
+/* .btn:focus {
     color: #fff;
 
     box-shadow: none !important;
-}
+} */
 
 .order-color{
 	color: blue;

@@ -19,7 +19,7 @@ const ProductsDashBoard = () => {
   const { mutate: removeProduct } = useProductMutation({ type: "REMOVE" });
   const colums: TableProps<TTableProduct>['columns'] = [
     {
-      title: 'STT',
+      title: '#',
       dataIndex: 'index',
       render: (text, record, index) => index + 1,
     },
@@ -42,7 +42,7 @@ const ProductsDashBoard = () => {
       title: "Image",
       key: "image",
       dataIndex: "image",
-      render: (image) => <img className="w-[30%]" src={image} alt={image} />
+      render: (image) => <img className="w-[30%] h-20" src={image} alt={image} />
     },
     {
       title: "Feature",
@@ -53,10 +53,10 @@ const ProductsDashBoard = () => {
     {
       title: 'Action',
       key: 'action',
-      render: (text, record) => (
+      render: (record) => (
         <span>
-          <Link to={`/admin/products/edit/${record._id}`}><Button className="btn btn-primary mr-3">Edit</Button></Link>
-          <Button className="btn btn-danger" onClick={() => removeProduct((record as any))}>Delete</Button>
+          <Link to={`/admin/products/edit/${record._id}`}><Button className="btn-primary mr-3 text-white">Edit</Button></Link>
+          <Button className="btn-danger" onClick={() => removeProduct((record as any))}>Delete</Button>
         </span>
       ),
     },
