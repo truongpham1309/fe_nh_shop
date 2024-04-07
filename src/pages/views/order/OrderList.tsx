@@ -1,13 +1,12 @@
+import { useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import Swal from "sweetalert2";
 import Loading from "../../../components/clients/Loading";
-import CartEmpty from "../cart/CartEmpty";
+import { useSessionStorage } from "../../../hooks/useLocal";
 import { useOrderMutation, useQueryOrder } from "../../../hooks/useOrder";
 import { TOrder } from "../../../types/order";
 import { convertToShortDateFormat } from "../../../utils/convertDateFomat";
 import "./../../../css/order-list.css";
-import Swal from "sweetalert2";
-import { useEffect } from "react";
-import { useSessionStorage } from "../../../hooks/useLocal";
 
 const OrderList = () => {
     const { data, isError, isLoading } = useQueryOrder({ _id: "" });
@@ -49,7 +48,17 @@ const OrderList = () => {
         })
     }
     if (isLoading) return <Loading />
-    if (isError || data.length === 0) return <CartEmpty />
+    if (isError || data.length === 0) {
+        Swal.fire({
+            icon: 'warning',
+            title: "Bạn chưa đơn hàng!",
+            confirmButtonText: 'Quay về',
+            allowOutsideClick: false
+        }).then((result) => {
+            if (result.isConfirmed) navigate(-1);
+            return;
+        })
+    }
     return (
         <div className="container mt-5">
             <table className="table table-borderless main">

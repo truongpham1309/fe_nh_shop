@@ -32,7 +32,7 @@ const CategoriesDashBoard = () => {
         {
             title: "#",
             key: "index",
-            render: (text, record, index) => index + 1,
+            render: (_, record, index) => index + 1,
         },
         {
             title: "Name",
@@ -42,7 +42,7 @@ const CategoriesDashBoard = () => {
         {
             title: "Total Product",
             key: "total_products",
-            render: (text, record, total) => record.products.length
+            render: (_, record) => record.products.length
         },
         {
             title: "Infomation",

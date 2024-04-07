@@ -36,7 +36,18 @@ const CheckOutComponent = () => {
         }
     }, [token]);
     if (isLoading) return <Loading />
-    if (isError) return <CartEmpty />
+    if (isError && !cart) {
+            Swal.fire({
+                icon: 'warning',
+                title: "Bạn chưa giỏ hàng!",
+                confirmButtonText: 'Quay về',
+                cancelButtonText: 'Hủy',
+                allowOutsideClick: false
+            }).then((result) => {
+                if (result.isConfirmed) navigate(-1);
+                return;
+            })
+    }
     return (
         <>
             <div className="flex flex-col items-center border-b bg-white py-4 sm:flex-row sm:px-10 lg:px-20 xl:px-32">
@@ -102,7 +113,7 @@ const CheckOutComponent = () => {
                         Check your items. And select a suitable shipping method.
                     </p>
                     <div className="mt-8 space-y-3 rounded-lg border bg-white px-2 py-4 sm:px-6">
-                        {(cart as TCart).items.map((item, index) => (
+                        {(cart as TCart)?.items?.map((item, index) => (
                             <div key={index} className="flex flex-col rounded-lg bg-white sm:flex-row">
                                 <img
                                     className="m-2 h-24 w-28 rounded-md border object-cover object-center"
@@ -216,18 +227,18 @@ const CheckOutComponent = () => {
                             <div className="mt-6 border-t border-b py-2">
                                 <div className="flex items-center justify-between">
                                     <p className="text-sm font-medium text-gray-900">Subtotal</p>
-                                    <p className="font-semibold text-gray-900">${(cart.items as []).reduce((accumulator: number, currentValue: any) => accumulator + currentValue.productID.price * currentValue.quantity, 0)}</p>
+                                    <p className="font-semibold text-gray-900">${(cart?.items as [])?.reduce((accumulator: number, currentValue: any) => accumulator + currentValue.productID.price * currentValue.quantity, 0)}</p>
                                 </div>
                                 <div className="flex items-center justify-between">
                                     <p className="text-sm font-medium text-gray-900">Shipping</p>
                                     <p className="font-semibold text-gray-900">$8.00</p>
-                                    <input type="number" hidden {...register("totalPrice")} value={(cart.items as []).reduce((accumulator: number, currentValue: any) => accumulator + currentValue.productID.price * currentValue.quantity, 0) + 8} />
-                                    <input type="text" hidden {...register("cartID")} value={cart._id} />
+                                    <input type="number" hidden {...register("totalPrice")} value={(cart?.items as [])?.reduce((accumulator: number, currentValue: any) => accumulator + currentValue.productID.price * currentValue.quantity, 0) + 8} />
+                                    <input type="text" hidden {...register("cartID")} value={cart?._id} />
                                 </div>
                             </div>
                             <div className="mt-6 flex items-center justify-between">
                                 <p className="text-sm font-medium text-gray-900">Total</p>
-                                <p className="text-2xl font-semibold text-gray-900">${(cart.items as []).reduce((accumulator: number, currentValue: any) => accumulator + currentValue.productID.price * currentValue.quantity, 0) + 8}</p>
+                                <p className="text-2xl font-semibold text-gray-900">${(cart?.items as [])?.reduce((accumulator: number, currentValue: any) => accumulator + currentValue.productID.price * currentValue.quantity, 0) + 8}</p>
                             </div>
                             <button className="mt-4 mb-8 w-full rounded-md bg-gray-900 px-6 py-3 font-medium text-white">
                                 Place Order
