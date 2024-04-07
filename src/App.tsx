@@ -19,12 +19,14 @@ import ProductDetailPage from "./pages/views/ProductDetailPage";
 import ShopPageComponent from "./pages/views/ShopPageComponent";
 import OrderList from "./pages/views/order/OrderList";
 import OrderDetail from "./pages/views/orderDetail/OrderDetail";
+import CategoriesDashBoard from "./pages/admin/categories/CategoriesDashBoard";
+import CategoryCreateAdmin from "./pages/admin/categories/CategoryCreateAdmin";
+import CategoryEditAdmin from "./pages/admin/categories/CategoryEditAdmin";
 
 
 configUseAxios();
 
 const App = () => {
-  const [token] = useSessionStorage("token", {});
   return (
     <>
       <BrowserRouter>
@@ -39,12 +41,18 @@ const App = () => {
             <Route path="/order/detail/:id" element={<OrderDetail />} />
           </Route>
 
-          <Route path="admin" element={<AdminLayout data={token} />} >
+          <Route path="admin" element={<AdminLayout />} >
             <Route index element={<ProductsDashBoard />} />
             <Route path="/admin/product/add" element={<ProductsCreateAdmin />} />
             <Route path="/admin/products/edit/:id" element={<ProductEditAdmin />} />
+
             <Route path="/admin/orders" element={<OrderDashBoardAdmin />} />
             <Route path="/admin/orders/detail/:id" element={<OrderDetailsAdmin />} />
+
+            <Route path="/admin/categories" element={<CategoriesDashBoard />} />
+            <Route path="/admin/categories/add" element={<CategoryCreateAdmin />} />
+            <Route path="/admin/categories/edit/:id" element={<CategoryEditAdmin />} />
+
           </Route>
           <Route path="/login" element={<LoginComponent />} />
           <Route path="/register" element={<RegisterComponent />} />

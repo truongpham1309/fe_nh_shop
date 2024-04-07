@@ -3,9 +3,11 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Link, Outlet, useNavigate } from 'react-router-dom'
 import { ToastContainer } from 'react-toastify';
 import Swal from 'sweetalert2';
+import { useSessionStorage } from '../../hooks/useLocal';
 
-const AdminLayout = ({ data, redirectPath = "/login" }: { data: any, redirectPath?: any }) => {
+const AdminLayout = ({ redirectPath = "/login" }: { redirectPath?: any }) => {
     const navigate = useNavigate();
+    const [data] = useSessionStorage('token', {});
     if (!data) {
         Swal.fire({
             icon: 'warning',
@@ -22,19 +24,17 @@ const AdminLayout = ({ data, redirectPath = "/login" }: { data: any, redirectPat
                 return navigate(-1);
             }
         })
-    } else {
-        if (data?.user?.role !== "admin") {
-            Swal.fire({
-                icon: 'warning',
-                title: "Bạn không phải admin!",
-                confirmButtonText: 'Quay về',
-                allowOutsideClick: false,
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    return navigate(-1);
-                }
-            })
-        }
+    } else if (data?.user?.role !== "admin") {
+        Swal.fire({
+            icon: 'warning',
+            title: "Bạn không phải admin!",
+            confirmButtonText: 'Quay về',
+            allowOutsideClick: false,
+        }).then((result) => {
+            if (result.isConfirmed) {
+                return navigate(-1);
+            }
+        })
     }
 
     return (

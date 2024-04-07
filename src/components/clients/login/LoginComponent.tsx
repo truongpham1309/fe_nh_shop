@@ -4,7 +4,6 @@ import { ToastContainer } from "react-toastify";
 import Swal from "sweetalert2";
 import { useSessionStorage } from "../../../hooks/useLocal";
 import { useLogin } from "../../../hooks/useLogin";
-import "./../../../sass/login.scss";
 
 const LoginComponent = () => {
     const { login, onLogin } = useLogin({ type: 'LOGIN' });
