@@ -11,7 +11,6 @@ export const configUseAxios = () => {
             }
             return config;
         },
-
         (error) => {
             return Promise.reject(error);
         }
