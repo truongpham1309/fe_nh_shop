@@ -26,7 +26,7 @@ const ProductItemComponent = ({ product }: { product: TProduct }) => {
                         {product.category.category_name}
                     </a>
                     <div className="product-price">
-                        <span className="product-price__new">$200</span>
+                        <span className="product-price__new">${product.price - (product.price * 0.1)}</span>
                         <span className="product-price__old">$ {product.price}</span>
                     </div>
                 </div>

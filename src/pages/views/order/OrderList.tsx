@@ -1,6 +1,6 @@
 import { Link, useNavigate } from "react-router-dom";
 import Loading from "../../../components/clients/Loading";
-import CartEmpty from "../../../components/clients/cart/CartEmpty";
+import CartEmpty from "../cart/CartEmpty";
 import { useOrderMutation, useQueryOrder } from "../../../hooks/useOrder";
 import { TOrder } from "../../../types/order";
 import { convertToShortDateFormat } from "../../../utils/convertDateFomat";
@@ -23,11 +23,13 @@ const OrderList = () => {
                 title: "Bạn chưa đăng nhập!",
                 confirmButtonText: 'Đăng nhập',
                 cancelButtonText: 'Hủy',
-                showCancelButton: true
+                showCancelButton: true,
+                allowOutsideClick: false,
             }).then((result) => {
                 if (result.isConfirmed) navigate('/login');
                 else if (result.dismiss === Swal.DismissReason.cancel) {
                     navigate(-1);
+                    return;
                 }
             })
         }

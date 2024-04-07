@@ -1,14 +1,16 @@
 import "bootstrap/dist/css/bootstrap.min.css";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import "react-toastify/ReactToastify.css";
-import CartComponent from "./components/clients/cart/CartComponent";
-import CheckOutComponent from "./components/clients/checkout/CheckOutComponent";
-import LoginComponent from "./components/clients/login/LoginComponent";
-import RegisterComponent from "./components/clients/login/RegisterComponent";
+import CartComponent from "./pages/views/cart/CartComponent";
+import CheckOutComponent from "./pages/views/checkout/CheckOutComponent";
+import LoginComponent from "./pages/views/login/LoginComponent";
+import RegisterComponent from "./pages/views/login/RegisterComponent";
 import { configUseAxios } from "./configs/axios";
-import { useSessionStorage } from "./hooks/useLocal";
 import AdminLayout from "./layouts/admin/AdminLayout";
 import LayoutClient from "./layouts/clients/LayoutClient";
+import CategoriesDashBoard from "./pages/admin/categories/CategoriesDashBoard";
+import CategoryCreateAdmin from "./pages/admin/categories/CategoryCreateAdmin";
+import CategoryEditAdmin from "./pages/admin/categories/CategoryEditAdmin";
 import OrderDashBoardAdmin from "./pages/admin/order/OrderDashBoardAdmin";
 import OrderDetailsAdmin from "./pages/admin/order/OrderDetailsAdmin";
 import ProductEditAdmin from "./pages/admin/products/ProductEditAdmin";
@@ -19,10 +21,6 @@ import ProductDetailPage from "./pages/views/ProductDetailPage";
 import ShopPageComponent from "./pages/views/ShopPageComponent";
 import OrderList from "./pages/views/order/OrderList";
 import OrderDetail from "./pages/views/orderDetail/OrderDetail";
-import CategoriesDashBoard from "./pages/admin/categories/CategoriesDashBoard";
-import CategoryCreateAdmin from "./pages/admin/categories/CategoryCreateAdmin";
-import CategoryEditAdmin from "./pages/admin/categories/CategoryEditAdmin";
-
 
 configUseAxios();
 

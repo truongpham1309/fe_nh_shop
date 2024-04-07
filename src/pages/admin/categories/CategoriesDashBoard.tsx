@@ -1,10 +1,10 @@
-import { faEdit, faInfo, faRemove, faTrain, faTrash } from "@fortawesome/free-solid-svg-icons";
+import { faEdit, faInfo, faTrash } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { Button, Table, TableProps } from "antd"
+import { Button, Table, TableProps } from "antd";
 import { Link } from "react-router-dom";
-import { useCategoryMutation, useCategoryQuery } from "../../../hooks/useCategoryQuery";
-import Loading from "../../../components/clients/Loading";
 import Swal from "sweetalert2";
+import Loading from "../../../components/clients/Loading";
+import { useCategoryMutation, useCategoryQuery } from "../../../hooks/useCategoryQuery";
 
 type TTableProps = {
     _id: string;

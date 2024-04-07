@@ -4,17 +4,33 @@ import useProductQuery from "../../../hooks/useProduct";
 import { TProduct } from "../../../types/products";
 import Loading from "../Loading";
 import ProductsRelatedComponent from "./ProductsRelatedComponent";
+import { useAddToCart } from "../../../hooks/useCart";
+import { useState } from "react";
 
 const ProductInfomationComponent = () => {
     const { id } = useParams();
     const navigate = useNavigate();
+    const { mutate, isPending } = useAddToCart();
+    const [quantity, setQuantity] = useState<number>(1);
     const { data, isLoading, isError } = useProductQuery({ id });
     const product: TProduct = {
         ...(data as TProduct)
     }
 
-    
-    if (isLoading ) return <Loading />;
+    const handleChangeQuantityCart = ({ type }: { type: "INCREMENT" | "DECREMENT" }) => {
+        switch (type) {
+            case "INCREMENT":
+                setQuantity(quantity => quantity + 1);
+                break;
+            case "DECREMENT":
+                if (quantity === 1) return;
+                setQuantity(quantity => quantity - 1);
+                break;
+            default: return;
+        }
+    }
+
+    if (isLoading) return <Loading />;
     if (isError) navigate("/products");
     return (
         <>
@@ -48,10 +64,10 @@ const ProductInfomationComponent = () => {
                                 </div>
                                 <div className="detail-reviews">
                                     <p className="text-review">
-                                       {product.description}
+                                        {product.description}
                                     </p>
                                 </div>
-                                
+
                                 <div className="detail-color">
                                     <h4 className="text-size">Color</h4>
                                     <div className="color">
@@ -67,13 +83,12 @@ const ProductInfomationComponent = () => {
                                     </div>
                                 </div>
                                 <div className="detail-listtocart">
-                                    <button className="slots">
-                                        <span className="remove">-</span>
-                                        <span className="slot">1</span>
-                                        <span className="add">+</span>
+                                    <button className="btn btn-light">
+                                        <span className="remove" onClick={() => handleChangeQuantityCart({type: "DECREMENT"})}>-</span>
+                                        <span className="slot">{quantity}</span>
+                                        <span className="add" onClick={() => handleChangeQuantityCart({type: "INCREMENT"})}>+</span>
                                     </button>
-                                    <button className="detail-addtocarts">Add To Cart</button>
-                                    <button className="detail-compare">Compare</button>
+                                    <button onClick={() => mutate({ productID: product._id, quantity: quantity })} className="btn btn-light">Add To Cart</button>
                                 </div>
                             </div>
                             <hr className="line-pruduct" />

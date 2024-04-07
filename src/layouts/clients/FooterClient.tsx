@@ -79,8 +79,6 @@ const FooterClient = () => {
                     <p className="copyright">2023 furino. All rights reverved</p>
                 </div>
             </footer>
-
-
         </>
     )
 }

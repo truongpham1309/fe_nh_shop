@@ -3,9 +3,9 @@ import { useCartQuery } from "../../../hooks/useCart"
 import { useSessionStorage } from "../../../hooks/useLocal";
 import { useOrderMutation } from "../../../hooks/useOrder";
 import { TCart } from "../../../types/cart";
-import Loading from "../Loading";
+import Loading from "../../../components/clients/Loading";
 import CartEmpty from "../cart/CartEmpty";
-import ServiceHome from "../home/ServiceHome"
+import ServiceHome from "../../../components/clients/home/ServiceHome"
 import "./../../../sass/checkout.scss"
 import { useEffect } from "react";
 import Swal from "sweetalert2";
@@ -14,11 +14,9 @@ const CheckOutComponent = () => {
 
     const { data: cart, isLoading, isError } = useCartQuery();
     const { register, formState: { errors }, handleSubmit, onSubmit } = useOrderMutation({ type: "ADD" });
-    if (isLoading) return <Loading />
-    if (isError) return <CartEmpty />
-    const [token] = useSessionStorage('token', "");
+    const [token] = useSessionStorage('token', {});
     const navigate = useNavigate();
-
+    
     useEffect(() => {
         if (!token) {
             Swal.fire({
@@ -26,23 +24,26 @@ const CheckOutComponent = () => {
                 title: "Bạn chưa đăng nhập!",
                 confirmButtonText: 'Đăng nhập',
                 cancelButtonText: 'Hủy',
-                showCancelButton: true
+                showCancelButton: true,
+                allowOutsideClick: false
             }).then((result) => {
                 if (result.isConfirmed) navigate('/login');
                 else if (result.dismiss === Swal.DismissReason.cancel) {
                     navigate(-1);
+                    return
                 }
             })
         }
-    }, [token, navigate]);
-    
+    }, [token]);
+    if (isLoading) return <Loading />
+    if (isError) return <CartEmpty />
     return (
         <>
             <div className="flex flex-col items-center border-b bg-white py-4 sm:flex-row sm:px-10 lg:px-20 xl:px-32">
                 <a href="#" className="text-2xl font-bold text-gray-800">
                     Sneekpeeks
                 </a>
-                <div className="mt-4 py-2 text-xs sm:mt-0 sm:ml-auto sm:text-base">
+                <div className="mt-4 py-2 text-xs sm:mt-0 sm:ml-auto sm:text-base text-gray-800">
                     <div className="relative">
                         <ul className="relative flex w-full items-center justify-between space-x-2 sm:space-x-4">
                             <li className="flex items-center space-x-3 text-left sm:space-x-4">
@@ -69,7 +70,7 @@ const CheckOutComponent = () => {
                             </li>
                             <svg
                                 xmlns="http://www.w3.org/2000/svg"
-                                className="h-4 w-4 text-gray-400"
+                                className="h-4 w-4 "
                                 fill="none"
                                 viewBox="0 0 24 24"
                                 stroke="currentColor"
@@ -94,7 +95,7 @@ const CheckOutComponent = () => {
                     </div>
                 </div>
             </div>
-            <div className="grid sm:px-10 lg:grid-cols-2 lg:px-20 xl:px-32">
+            <div className="grid sm:px-10 lg:grid-cols-2 lg:px-20 xl:px-32 text-gray-800">
                 <div className="px-4 pt-8">
                     <p className="text-xl font-medium">Order Summary</p>
                     <p className="text-gray-400">
@@ -135,7 +136,7 @@ const CheckOutComponent = () => {
                                     className="w-full rounded-md border border-gray-200 px-5 py-3 pl-11 text-sm shadow-sm outline-none focus:z-10 focus:border-blue-500 focus:ring-blue-500"
                                     placeholder="Address"
                                 />
-                                {errors.address && <span className="fs-6 text-danger">Address is required</span> }
+                                {errors.address && <span className="fs-6 text-danger">Address is required</span>}
                                 <div className="pointer-events-none absolute inset-y-0 left-0 inline-flex items-center px-3">
                                     <svg
                                         xmlns="http://www.w3.org/2000/svg"

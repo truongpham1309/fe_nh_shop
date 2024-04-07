@@ -23,8 +23,9 @@ const LoginComponent = () => {
                         navigate("/admin");
                         return;
                     }
+                    navigate(-1);
+                    return;
                 };
-                navigate(-1);
             })
         }
     }, [])

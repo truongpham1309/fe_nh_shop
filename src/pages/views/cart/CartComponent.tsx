@@ -1,12 +1,12 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useCartQuery, useUpdateQuantity } from "../../../hooks/useCart";
-import ServiceHome from "../home/ServiceHome";
+import ServiceHome from "../../../components/clients/home/ServiceHome";
 import { faMinus, faPlus, faTrash } from "@fortawesome/free-solid-svg-icons";
 import { useSessionStorage } from "../../../hooks/useLocal";
 import { Link, useNavigate } from "react-router-dom";
 import { useEffect } from "react";
 import Swal from "sweetalert2";
-import Loading from "../Loading";
+import Loading from "../../../components/clients/Loading";
 import CartEmpty from "./CartEmpty";
 import { TCart } from "../../../types/cart";
 
@@ -26,7 +26,8 @@ const CartComponent = () => {
                 title: "Bạn chưa đăng nhập!",
                 confirmButtonText: 'Đăng nhập',
                 cancelButtonText: 'Hủy',
-                showCancelButton: true
+                showCancelButton: true,
+                allowOutsideClick: false
             }).then((result) => {
                 if (result.isConfirmed) navigate('/login');
                 else if (result.dismiss === Swal.DismissReason.cancel) {
@@ -40,9 +41,9 @@ const CartComponent = () => {
     if (isError || data.items.length === 0) return <CartEmpty />
     return (
         <>
-            <section className="gradient-custom">
+            <section className="">
                 <div className="container">
-                    <div className="row d-flex justify-content-center my-4">
+                    <div className="row d-flex justify-content-center">
                         <div className="col-md-8">
                             <div className="card mb-4">
                                 <div className="card-header py-3">
@@ -51,7 +52,7 @@ const CartComponent = () => {
                                 <div className="card-body">
                                     {(data as TCart).items.map((item, index) => (
                                         <div className="row" key={index}>
-                                            <div className="col-lg-3 col-md-12 mb-4 mb-lg-0">
+                                            <div className="col-lg-3 col-md-12 mb-lg-0">
                                                 {/* Image */}
                                                 <div
                                                     className="bg-image hover-overlay hover-zoom ripple rounded"
@@ -59,7 +60,7 @@ const CartComponent = () => {
                                                 >
                                                     <img
                                                         src={item.productID.image}
-                                                        className="w-100"
+                                                        className="w-100 h-20 object-contain"
                                                         alt={item.productID.product_name}
                                                     />
                                                     <div
@@ -127,12 +128,10 @@ const CartComponent = () => {
                                             </div>
                                         </div>
                                     ))}
-
-                                    {/* Single item */}
                                     <hr className="my-4" />
                                 </div>
                             </div>
-                            <div className="card mb-4">
+                            <div className="card">
                                 <div className="card-body">
                                     <p>
                                         <strong>Expected shipping delivery</strong>
@@ -169,7 +168,7 @@ const CartComponent = () => {
                                         </li>
                                     </ul>
                                     <Link to={`/checkout`}>
-                                        <button type="button" className="btn btn-primary btn-lg btn-block">
+                                        <button type="button" className="btn btn-primary btn-block">
                                             Go to checkout
                                         </button>
                                     </Link>

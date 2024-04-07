@@ -14,9 +14,10 @@ export const loginService = async (user: TUser) => {
 
 export const registerService = async (user: TRegister) => {
     try {
-        await axios.post("/auth/register", user);
+        const { data } = await axios.post("/auth/register", user);
+        return data;
     } catch (error: any) {
-        toast.error("Đăng kí thất bại", error.message)
+        toast.error(error.response.data.message)
         console.log(error);
     }
 }
