@@ -15,7 +15,7 @@ const ProductEditAdmin = () => {
             return await getProductDetailAdmin((id as string));
         }
     })
-    const { onSubmit, handleSubmit, errors, register, reset } = useProductMutation({ type: "UPDATE" });
+    const { onSubmit, handleSubmit, errors, register, reset, isPending } = useProductMutation({ type: "UPDATE" });
 
     useEffect(() => {
         reset(data);
@@ -84,7 +84,7 @@ const ProductEditAdmin = () => {
                 </div>
 
                 <div className="text-left">
-                    <button className='btn btn-primary h-10 px-10 mt-4 text-left'>Submit</button>
+                    <button disabled={isPending} className='btn btn-primary h-10 px-10 mt-4 text-left'>Submit</button>
                 </div>
 
             </form>

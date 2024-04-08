@@ -1,6 +1,5 @@
-import { Link } from "react-router-dom"
-import { ToastContainer } from "react-toastify"
-import { IconClose, IconFb, IconGG } from "../../../assets"
+import { Link } from "react-router-dom";
+import { ToastContainer } from "react-toastify";
 import { useLogin } from "../../../hooks/useLogin";
 
 const RegisterComponent = () => {
@@ -55,7 +54,7 @@ const RegisterComponent = () => {
                                         id="email"
                                         {...login.register("email", { required: true })}
                                         className="bg-gray-50 border outline-none border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 "
-                                        placeholder="name@company.com"
+                                        placeholder="name@gmail.com"
                                     />
                                     {login.formState.errors.email && <p className="text-red-500 text-left">Email is required</p>}
                                 </div>
@@ -120,7 +119,6 @@ const RegisterComponent = () => {
                     </div>
                 </div>
             </section>
-
         </>
     )
 }

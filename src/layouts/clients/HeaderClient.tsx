@@ -52,7 +52,7 @@ const HeaderClient = () => {
                                 </Link>
                             </div>
                             <div className="header-item-user">
-                                <Link to="/product/detail">
+                                <Link to="">
                                     <img src={Icon3} />
                                 </Link>
                             </div>
